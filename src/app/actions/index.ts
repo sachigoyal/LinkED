@@ -20,3 +20,10 @@ export async function getUrls() {
   const urls = await Url.find();
   return urls;
 }
+
+export async function deleteUrl(urlId: string) {
+  await dbConnect();
+
+  await Url.deleteOne({ _id: urlId });
+  revalidatePath("/")
+}
