@@ -4,6 +4,7 @@ import { dbConnect } from "@/lib/db"
 import Url from "@/model/Url"
 import { nanoid } from "nanoid";
 import { revalidatePath } from "next/cache";
+import { TUrl } from "@/types";
 
 export async function createUrl(originalUrl: string) {
   await dbConnect();
@@ -14,9 +15,20 @@ export async function createUrl(originalUrl: string) {
   revalidatePath("/")
 }
 
-export async function getUrls() {
+export async function getUrls(): Promise<TUrl[]> {
   await dbConnect();
 
   const urls = await Url.find();
-  return urls;
+  return urls.map(url => ({
+    _id: url._id.toString(),
+    originalUrl: url.originalUrl,
+    shortId: url.shortId
+  }));
+}
+
+export async function deleteUrl(urlId: string) {
+  await dbConnect();
+
+  await Url.deleteOne({ _id: urlId });
+  revalidatePath("/")
 }

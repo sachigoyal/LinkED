@@ -6,16 +6,23 @@ import { Input } from "@/components/ui/input";
 import { toast } from "sonner"
 import { Loader2 } from "lucide-react";
 import { createUrl } from "@/app/actions";
+import { validateUrl } from "@/lib/utils";
 
 export function UrlShortner() {
   const [submitting, setSubmitting] = useState(false);
   const [url, setUrl] = useState("");
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     setSubmitting(true);
 
     try {
-      await createUrl(url);
+      const formattedUrl = validateUrl(url);
+      if (!formattedUrl) {
+        toast.error("Invalid URL")
+        return
+      }
+      await createUrl(formattedUrl);
       toast.success("URL shortened successfully")
       setUrl("")
     } catch (error) {
@@ -27,12 +34,12 @@ export function UrlShortner() {
   }
 
   return (
-    <div className="flex items-center gap-4">
+    <form onSubmit={handleSubmit} className="flex items-center gap-4">
       <Input type="text" placeholder="Enter URL" className="w-full" value={url} onChange={(e) => setUrl(e.target.value)} />
-      <Button onClick={handleSubmit} disabled={submitting} className="gap-2 cursor-pointer">
+      <Button type="submit" disabled={submitting} className="gap-2 cursor-pointer">
         {submitting && <Loader2 className="animate-spin" />}
         Submit
       </Button>
-    </div>
+    </form>
   )
 }

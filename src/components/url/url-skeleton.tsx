@@ -9,6 +9,7 @@ export function UrlListSkeleton() {
             <tr className="border-b">
               <th className="h-12 px-4 text-left align-middle">Original URL</th>
               <th className="h-12 px-4 text-left align-middle">Short URL</th>
+              <th className="h-12 px-4 text-right align-right">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -19,6 +20,9 @@ export function UrlListSkeleton() {
                 </td>
                 <td className="p-4 align-middle">
                   <div className="w-full h-4 bg-muted rounded-md animate-pulse"></div>
+                </td>
+                <td className="p-4 align-right">
+                  <div className="ml-auto w-4 h-4 bg-muted rounded-md animate-pulse"></div>
                 </td>
               </tr>
             ))}
