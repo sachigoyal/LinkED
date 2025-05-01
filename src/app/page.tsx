@@ -6,7 +6,7 @@ import { Suspense } from "react";
 
 export default function Home() {
   return (
-    <div className="w-full max-w-3xl mx-auto space-y-6">
+    <div className="w-full max-w-3xl mx-auto space-y-6 px-2 sm:px-0">
       <Header />
       <UrlShortner />
       <Suspense fallback={<UrlListSkeleton />}>
