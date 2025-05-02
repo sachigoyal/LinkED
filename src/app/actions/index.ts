@@ -26,6 +26,13 @@ export async function getUrls(): Promise<TUrl[]> {
   }));
 }
 
+export async function getUrl(shortId: string) {
+  await dbConnect();
+
+  const url = await Url.findOne({ shortId });
+  return url;
+}
+
 export async function deleteUrl(urlId: string) {
   await dbConnect();
 
