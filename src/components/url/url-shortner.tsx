@@ -17,8 +17,6 @@ export function UrlShortner() {
     if (typeof window === 'undefined') return {};
     
     return {
-      platform: navigator?.platform || undefined,
-      vendor: navigator?.vendor || undefined,
       language: navigator?.language || undefined,
       screenResolution: window.screen ? `${window.screen.width}x${window.screen.height}` : undefined,
       timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || undefined,

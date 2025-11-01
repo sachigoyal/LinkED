@@ -4,8 +4,6 @@ export interface IUserMetadata {
   ip?: string;
   userAgent?: string;
   language?: string;
-  platform?: string;
-  vendor?: string;
   screenResolution?: string;
   timezone?: string;
   referrer?: string;
@@ -23,8 +21,6 @@ const UserMetadataSchema = new Schema<IUserMetadata>({
   ip: { type: String },
   userAgent: { type: String },
   language: { type: String },
-  platform: { type: String },
-  vendor: { type: String },
   screenResolution: { type: String },
   timezone: { type: String },
   referrer: { type: String },
