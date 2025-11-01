@@ -7,10 +7,24 @@ import { toast } from "sonner"
 import { Loader2 } from "lucide-react";
 import { createUrl } from "@/app/actions";
 import { validateUrl } from "@/lib/utils";
+import { TUserMetadata } from "@/types";
 
 export function UrlShortner() {
   const [submitting, setSubmitting] = useState(false);
   const [url, setUrl] = useState("");
+
+  const getClientMetadata = (): TUserMetadata => {
+    if (typeof window === 'undefined') return {};
+    
+    return {
+      platform: navigator?.platform || undefined,
+      vendor: navigator?.vendor || undefined,
+      language: navigator?.language || undefined,
+      screenResolution: window.screen ? `${window.screen.width}x${window.screen.height}` : undefined,
+      timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || undefined,
+      userAgent: navigator?.userAgent || undefined,
+    };
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -22,7 +36,10 @@ export function UrlShortner() {
         toast.error("Invalid URL")
         return
       }
-      await createUrl(formattedUrl);
+      
+      const userMetadata = getClientMetadata();
+      
+      await createUrl(formattedUrl, userMetadata);
       toast.success("URL shortened successfully")
       setUrl("")
     } catch (error) {

@@ -102,7 +102,7 @@ export function UrlListClient({ urls, baseUrl }: UrlListClientProps) {
           <DialogHeader>
             <DialogTitle>Are you sure?</DialogTitle>
             <DialogDescription>
-              This action cannot be undone. This will permanently delete the shortened URL.
+              This will mark the shortened URL as deleted and it will no longer be accessible.
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
@@ -116,4 +116,4 @@ export function UrlListClient({ urls, baseUrl }: UrlListClientProps) {
       </Dialog>
     </>
   )
-} 
+}
